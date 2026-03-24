@@ -1,0 +1,52 @@
+%% 构型寻优 
+clc;
+clear;
+profile on
+
+%% 1. 构型库数据初始化
+RP_data = Module_Lib();
+
+%% 2. 【定义任务点】
+% 仅有任务点够吗？之后是否需要根据任务类型改变寻优策略
+goal = [0;0;7];
+
+%% 3. 【遗传算法参数设置】
+num_modules = calc_modules_upper_0318(goal,RP_data);   % 根据任务点限制模块上限
+IntCon = 1:num_modules;               % 声明这num_modules个变量全部是整数
+% 设置变量的上下界
+% module 范围 [1,5], install 范围 [0,1], align 范围 [0,2]，但先假设全部正装，对齐角为0
+lb = [ones(1, num_modules)*1, ones(1, num_modules)*1,ones(1, num_modules)*0];
+ub = [ones(1, num_modules)*5, ones(1, num_modules)*1,ones(1, num_modules)*0];
+% 算法选项配置
+options = optimoptions('ga', ...
+    'Display', 'iter', ...           % 打印每一代的迭代过程
+    'PopulationSize', 20, ...        % 种群大小 (越大搜索越广，但越慢)
+    'MaxGenerations', 1, ...       % 最大进化代数
+    'PlotFcn', @gaplotbestf);        % 实时绘制最优适应度曲线
+
+%%
+
+
+
+%% 4. 【调用 GA 求解】
+fprintf('开始构型寻优...\n');
+[best_x, best_cost] = ga(@(x) evaluate_config_0318(x, goal, RP_data), num_modules*3, [], [], [], [], lb, ub, [], IntCon, options);
+% @(x) evaluate_config()：评价准则，输入变量是x；
+% num_modules：变量总数
+% [], [], [], []：线性约束（不等式和等式）
+% lb, ub：搜索边界
+% []：非线性约束
+% IntCon：整数约束
+% options：算法控制台
+
+%% 5. 【结果解析】
+disp('寻优完成！最优构型参数：');
+best_module  = best_x(1:num_modules);
+best_install = best_x(num_modules+1 : 2*num_modules);
+best_align   = best_x(2*num_modules+1 : end) * (2*pi/3);
+
+fprintf('Module:  [%s]\n', num2str(best_module));
+fprintf('Install: [%s]\n', num2str(best_install));
+fprintf('Align:   [%s]\n', num2str(best_align));
+
+profile viewer
