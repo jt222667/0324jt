@@ -10,8 +10,8 @@ RP_data = Module_Lib();
 goal = [0;0;8];
 
 %% 3. 【遗传算法参数设置】
-num_modules = calc_modules_upper_0318(goal,RP_data);   % 根据任务点限制模块上限
-IntCon = 1:num_modules*3;               % 声明这num_modules个变量全部是整数
+num_modules = calc_modules_upper_0318(goal,RP_data);    % 根据任务点限制模块上限
+IntCon = 1:num_modules*3;                               % 声明这num_modules个变量全部是整数
 
 %% 生成该构型对应的mex文件，加快计算
 MEX_generate(num_modules,RP_data);
@@ -25,13 +25,12 @@ ub = [ones(1, num_modules)*5, ones(1, num_modules)*1,ones(1, num_modules)*2];
 options = optimoptions('ga', ...
     'Display', 'iter', ...
     ... % --- 种群与迭代 ---
-    'PopulationSize', 200, ...       % 【调大】变量变多后，50的种群多样性不够，容易早熟陷入局部最优。建议设为 100~200。
-    'MaxGenerations', 200, ...       % 【调小】对于整数规划，500代太多了，通常100-200代内就会收敛。
-    'MaxStallGenerations', 5, ...   % 【新增】停滞代数。如果连续 30 代最优解都没有改变，就提前终止，节省大量时间。
+    'PopulationSize', 200, ...       
+    'MaxGenerations', 200, ...       
+    'MaxStallGenerations', 5, ...   
     ... % --- 算法行为 ---
-    'CreationFcn', @gacreationlinearfeasible, ... % 【关键】强制保证初始种群满足整数和上下界约束
-    ... % --- 加速计算 ---
-    'UseParallel', true, ...         % 【极力推荐】如果你的 evaluate_config_0318 计算很慢，务必开启并行池（前提是评价函数内部没有全局变量冲突）
+    'CreationFcn', @gacreationlinearfeasible, ... 
+    'UseParallel', true, ...         
     ... % --- 可视化 ---
     'PlotFcn', @gaplotbestf);
 
@@ -71,5 +70,5 @@ fprintf('Align:   [%s]\n', num2str(best_align));
  
 fprintf('Cost:    %.6f\n', best_cost);
 fprintf('q_opt:   [%s]\n', num2str(best_detail.q_opt(:).'));
-fprintf('w_opt:   %.6f\n', best_detail.w);
-fprintf('w_opt:   %.6f\n', best_detail.sig);
+fprintf('w_opt:   %.6f  %.6f\n', best_detail.w(1),best_detail.w(2));
+fprintf('sig_opt: %.6f\n', best_detail.sig);

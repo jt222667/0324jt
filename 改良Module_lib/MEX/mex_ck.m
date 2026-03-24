@@ -28,8 +28,8 @@ parfor k = 1:num_trials
     q_init = mod(2*pi*(base + (k-1)/num_trials), 2*pi);
 
     SV_init = Trans_aa_pos_mex(LP, SV, q_init);
-    w_init_struct = calc_Manipulability_0318(LP, SV_init);
-    w_ref = w_init_struct(2) + 1e-9; 
+    w = calc_Manipulability_0318(LP, SV_init);
+    w_ref = w(2) + 1e-9; 
 
     % 调用 fmincon
     [q_opt, fval] = fmincon(@(q) jIKc(q, LP, SV, Goal, w_ref), ...
