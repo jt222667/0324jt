@@ -29,9 +29,15 @@ function [cost, detail] = mex_ev(x, goal, RP_data)
         % 如果可达，计算可操作度 (Manipulability)和精度(Accuracy)
         % 假设你有一个函数 calc_manipulability() 计算当前位姿的雅可比矩阵行列式
         w = calc_Manipulability_0318(LP, SV); 
-        sig = calc_Accuracy_0318(LP, SV); 
+        [sig, ~]= calc_Accuracy_0325(LP, SV); 
         % 综合代价函数
-        cost = cost + wei_Manipulability(w) + wei_Accuracy(sig); 
+        
+        if isfield(RP_data, 'weight_cfg')
+            weight_cfg = RP_data.weight_cfg;
+        else
+            weight_cfg = [];
+        end
+        cost = cost + mex_w_Man(w, weight_cfg) + mex_w_Acc(sig, weight_cfg); 
 
         detail.flag = 0;        
         detail.q_opt = q_sol;

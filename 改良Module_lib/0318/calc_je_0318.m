@@ -28,7 +28,6 @@ JJ = [ JJ_te; JJ_re ];
 % Compose the Jacobian using the corresponding joints.
 Jacobian = zeros(6,LP.num_joint);
 
-
 for i = 1:length(path_all)
     idx = LP.R_idx(1:LP.num_joint) == path_all(i);
     Jacobian(:, idx) = JJ(:, i);
