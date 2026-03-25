@@ -31,8 +31,8 @@ flag = 0;
 
 for iter = 1:loop_limit
     % ------ 更新前向运动学 ------
-    SV = calc_aa_new_mex(LP, SV);
-    SV = calc_pos_new_mex(LP, SV);
+    SV = calc_aa_new(LP, SV);
+    SV = calc_pos_new(LP, SV);
     % ========= 1. 计算每条路径的误差 DT_k =========
     DT = zeros(6*m,1);
 

@@ -1,0 +1,121 @@
+/*
+ * Academic License - for use in teaching, academic research, and meeting
+ * course requirements at degree granting institutions only.  Not for
+ * government, commercial, or other organizational use.
+ *
+ * calc_aa_0318_types.h
+ *
+ * Code generation for function 'calc_aa_0318'
+ *
+ */
+
+#pragma once
+
+/* Include files */
+#include "rtwtypes.h"
+#include "emlrt.h"
+
+/* Type Definitions */
+#ifndef typedef_cell_wrap_1
+#define typedef_cell_wrap_1
+typedef struct {
+  real_T f1[3];
+} cell_wrap_1;
+#endif /* typedef_cell_wrap_1 */
+
+#ifndef typedef_struct0_T
+#define typedef_struct0_T
+typedef struct {
+  real_T module[12];
+  real_T num_q;
+  real_T install[12];
+  real_T align[12];
+  real_T BB[12];
+  real_T Rp[90];
+  real_T Rd[90];
+  real_T Pp[30];
+  real_T Pd[30];
+  real_T RBcp[27];
+  real_T PBcp[9];
+  real_T T_L[160];
+  real_T T_B[32];
+  char_T J_type[12];
+  real_T R_idx[20];
+  real_T num_joint;
+  real_T S0[12];
+  real_T SN[12];
+  real_T SE[12];
+  real_T SS[144];
+  real_T Qe[36];
+  real_T cc[432];
+  real_T c0[36];
+  real_T ce[36];
+  real_T m0[12];
+  real_T m;
+  real_T mass;
+  real_T inertia[108];
+  real_T inertia0[9];
+  char_T acc_metric_mode[11];
+  char_T acc_agg_mode[3];
+  boolean_T acc_use_numeric_W;
+  real_T err_std_theta;
+  real_T err_std_d;
+  real_T err_std_a;
+  real_T err_std_alpha;
+  real_T err_std_beta;
+  real_T err_std_model;
+  real_T acc_fd_eps_d;
+  real_T acc_fd_eps_a;
+  real_T acc_fd_eps_alpha;
+  real_T acc_fd_eps_beta;
+} struct0_T;
+#endif /* typedef_struct0_T */
+
+#ifndef typedef_cell_0
+#define typedef_cell_0
+typedef struct {
+  real_T f1[3];
+  real_T f2[9];
+} cell_0;
+#endif /* typedef_cell_0 */
+
+#ifndef typedef_cell_wrap_2
+#define typedef_cell_wrap_2
+typedef struct {
+  real_T f1[9];
+} cell_wrap_2;
+#endif /* typedef_cell_wrap_2 */
+
+#ifndef typedef_struct1_T
+#define typedef_struct1_T
+typedef struct {
+  real_T R0[3];
+  real_T Q0[3];
+  real_T A0[9];
+  real_T AA[108];
+  real_T RR[36];
+  real_T v0[3];
+  real_T w0[3];
+  real_T vd0[3];
+  real_T wd0[3];
+  real_T q[12];
+  real_T qd[12];
+  real_T qdd[12];
+  real_T vv[36];
+  real_T ww[36];
+  real_T vd[36];
+  real_T wd[36];
+  real_T F0[3];
+  real_T T0[3];
+  real_T Fe[36];
+  real_T Te[36];
+  real_T tau[12];
+  real_T m;
+  cell_0 Path;
+  cell_wrap_1 POS_e[2];
+  cell_wrap_2 ORI_e[2];
+  real_T singleArm_joints[2];
+} struct1_T;
+#endif /* typedef_struct1_T */
+
+/* End of code generation (calc_aa_0318_types.h) */
