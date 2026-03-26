@@ -12,33 +12,22 @@ function c_w = weight_w(w, cfg)
 %   .eps_w, .w_ref, .lambda_w, .p_w, .w_mode('min'|'mean')
 % -------------------------------------------------------------------------
 
-if nargin < 2 || isempty(cfg)
-    cfg = local_get_weight_cfg();
-end
-
-EPS_W    = local_get_field(cfg, 'eps_w',    1.0e-12);
-W_REF    = local_get_field(cfg, 'w_ref',    1.0);
-LAMBDA_W = local_get_field(cfg, 'lambda_w', 1.0);
-P_W      = local_get_field(cfg, 'p_w',      1.0);
-W_MODE   = local_get_field(cfg, 'w_mode',   'min');
+EPS_W    = cfg.eps_w;       % 防止除0
+W_REF    = cfg.w_ref;       % w参考值
+LAMBDA_W = cfg.lambda_w;    % 权重系数
+P_W      = cfg.p_w;         % 指数
+W_MODE   = cfg.w_mode;      % 模式 min / mean
 
 if isempty(w)
     c_w = inf;
     return;
 end
 
-w = w(:);
-mask = isfinite(w) & (w > 0);
-if ~any(mask)
-    c_w = inf;
-    return;
-end
-
 switch lower(W_MODE)
-    case 'mean'
-        w_eff = mean(w(mask));
+    case 'max'
+        w_eff = max(w);
     otherwise
-        w_eff = min(w(mask));
+        w_eff = mean(w);
 end
 
 ratio = W_REF / max(w_eff, EPS_W);
@@ -49,24 +38,3 @@ if ~isfinite(c_w)
 end
 end
 
-function cfg = local_get_weight_cfg()
-cfg = struct();
-try
-    if evalin('base', 'exist(''weight_cfg'',''var'')')
-        tmp = evalin('base', 'weight_cfg');
-        if isstruct(tmp)
-            cfg = tmp;
-        end
-    end
-catch
-    % ignore base-workspace access errors
-end
-end
-
-function v = local_get_field(s, name, default_value)
-if isstruct(s) && isfield(s, name)
-    v = s.(name);
-else
-    v = default_value;
-end
-end

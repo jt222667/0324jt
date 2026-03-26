@@ -48,7 +48,7 @@ q_sol = all_q_opt{best_idx};
 SV = Trans_aa_pos_mex(LP, SV, q_sol);
 
 %% 验证逆解结果
-for i = 1:SV.m
+for i = change    
     ERROR = ERROR + norm(SV.POS_e{i} - Goal.POS{i});
 end
 
@@ -56,7 +56,7 @@ if ERROR > norm_limit
     flag = 1;
 end
 
-fprintf(' ERROR = %d\n',ERROR);
+fprintf(' ERROR = %.6e\n',ERROR);
 fprintf(' flag  = %d\n',flag);
 
 end

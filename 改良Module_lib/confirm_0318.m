@@ -5,7 +5,7 @@ clear;
 RP_data = Module_Lib();
 Configuration_Lib = { ...
     [1 2 1], ...
-    [1 2 1 2 1 2 1], ...
+    [2 2 1 1 2 2 3], ...
     [1 2 3 1 2 3 1], ...
     [1 1 1 2 1 2 2], ...
     [2 2 2 2 2 2 2], ...
@@ -33,6 +33,7 @@ sequence = [ ...
     0  4  5  6  7  8  9, ...
     0  11 12 13 14 15 16, ...
     ];
+
 LP = LP_generate(module, install, align, sequence, RP_data);
 SV = SV_generate(LP);
 
@@ -40,8 +41,9 @@ SV = SV_generate(LP);
 q0 = rand(LP.num_joint,1)  * pi * 2;
 SV = Trans_aa_pos_init(LP, SV, q0);
 
+%% w 计算
 % %% 目标设置
-Goal = Goal_init(LP,SV);
+Goal = Goal_init(SV);
 Goal.change = [0 1 0];
 Goal.POS{find(Goal.change==1)}  = [0;0;7];
 %
@@ -59,17 +61,17 @@ w_ik = calc_Manipulability_0318(LP, SV)
 
 fprintf('w_best(2) = %.6f\n  w_ik(2) = %.6f\n w_opt(2) = %.6f\n', w_best(2),w_ik(2),w_opt(2));
 
+%% 
 
-
-% 综合代价函数
-
-% if isfield(RP_data, 'weight_cfg')
-%     weight_cfg = RP_data.weight_cfg;
-% else
-%     weight_cfg = [];
-% end
+% goal = [0;0;8];
+% MEX_generate(7,RP_data);
+% x=[1 2 1 2 1 2 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0];
 % 
-% Man = mex_w_Man(w, weight_cfg)
+% [cost, detail] = mex_ev(x, goal, RP_data)
+
+% w = calc_Manipulability_0318(LP, SV)
+% [sig, ~]= calc_Accuracy_0325(LP, SV)
 % 
-% Acc = mex_w_Acc(sig, weight_cfg)
+% weight_w(w, RP_data.weight_cfg)
+% weight_sig(sig_opt, RP_data.weight_cfg)
 

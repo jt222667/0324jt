@@ -72,5 +72,5 @@ fprintf('Align:   [%s]\n', num2str(best_align));
  
 fprintf('Cost:    %.6f\n', best_cost);
 fprintf('q_opt:   [%s]\n', num2str(best_detail.q_opt(:).'));
-fprintf('w_opt:   %.6f  %.6f\n', best_detail.w(1),best_detail.w(2));
+fprintf('w_opt:   [%s]\n', num2str(best_detail.w(:).'));
 fprintf('sig_opt: %.6f\n', best_detail.sig);

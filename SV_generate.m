@@ -45,4 +45,6 @@ for i = 1:SV.m
     SV.singleArm_joints(i) = sum(types == 'R');
 end
 
+
+
 end

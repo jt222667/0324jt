@@ -15,8 +15,8 @@ LP = LP_generate(module, install, align, sequence, RP_data);
 SV = SV_generate(LP);
 
 % 3. 运行逆运动学检查是否可达
-Goal = Goal_init(LP,SV);
-Goal.change = [0;1;0];
+Goal = Goal_init(SV);
+Goal.change = [0 1 0];
 Goal.POS{Goal.change==1} = goal;
 
 [LP, SV, flag, q_sol] = mex_ck(LP, SV, Goal);
@@ -33,12 +33,7 @@ else
     [sig, ~]= calc_Accuracy_0325(LP, SV);
     % 综合代价函数
 
-    if isfield(RP_data, 'weight_cfg')
-        weight_cfg = RP_data.weight_cfg;
-    else
-        weight_cfg = [];
-    end
-    cost = cost + weight_w(w, weight_cfg) + weight_sig(sig, weight_cfg);
+    cost = cost + weight_w(w, RP_data.weight_cfg) + weight_sig(sig, RP_data.weight_cfg);
 
     detail.flag = 0;
     detail.q_opt = q_sol;
