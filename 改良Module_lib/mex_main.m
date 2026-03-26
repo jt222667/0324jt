@@ -4,13 +4,16 @@ clear;
 
 %% 1. 构型库数据初始化
 RP_data = Module_Lib();
+% 权重设置
+RP_data.weight_cfg.lambda_sig = 1;
+RP_data.weight_cfg.lambda_w = 10;
 
 %% 2. 【定义任务点】
 % 仅有任务点够吗？之后是否需要根据任务类型改变寻优策略
-goal = [0;0;3];
+goal = [0;0;8];
 
 %% 3. 【遗传算法参数设置】
-num_modules = 3;    % 根据任务点限制模块上限
+num_modules = calc_modules_upper_0318(goal,RP_data);    % 根据任务点限制模块上限
 IntCon = 1:num_modules*3;                               % 声明这num_modules个变量全部是整数
 
 %% 生成该构型对应的mex文件，加快计算
@@ -25,7 +28,7 @@ ub = [ones(1, num_modules)*5, ones(1, num_modules)*1,ones(1, num_modules)*2];
 options = optimoptions('ga', ...
     'Display', 'iter', ...
     ... % --- 种群与迭代 ---
-    'PopulationSize', 500, ...       
+    'PopulationSize', 1000, ...       
     'MaxGenerations', 200, ...       
     'MaxStallGenerations', 5, ...   
     ... % --- 算法行为 ---

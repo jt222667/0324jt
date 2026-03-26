@@ -89,4 +89,7 @@ LP.acc_fd_eps_a       = 1.0e-6;
 LP.acc_fd_eps_alpha   = 1.0e-6;
 LP.acc_fd_eps_beta    = 1.0e-6;
 
+%% 权重
+LP.weight_cfg = RP_data.weight_cfg;
+
 end

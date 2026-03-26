@@ -30,12 +30,8 @@ parfor k = 1:num_trials
     base = (1:num_joint)' / (num_joint + 1);
     q_init = mod(2*pi*(base + (k-1)/num_trials), 2*pi);
 
-    SV_init = Trans_aa_pos_mex(LP, SV, q_init);
-    w = calc_Manipulability_0318(LP, SV_init);
-    w_ref = w(change) + 1e-9; 
-
     % 调用 fmincon
-    [q_opt, fval] = fmincon(@(q) jIKc(q, LP, SV, Goal, w_ref, change), ...
+    [q_opt, fval] = fmincon(@(q) jIKc(q, LP, SV, Goal, change), ...
         q_init, [], [], [], [], ...
         zeros(num_joint,1), 2*pi*ones(num_joint,1), [], options);
     % 将结果存入临时数组（parfor 内部不能直接更新外部的全局 best_cost）
