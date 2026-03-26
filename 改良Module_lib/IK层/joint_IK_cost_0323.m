@@ -1,3 +1,4 @@
+%% MAX(w)
 function cost = joint_IK_cost_0323(q, LP, SV)
 
 SV = Trans_aa_pos_init(LP, SV, q);

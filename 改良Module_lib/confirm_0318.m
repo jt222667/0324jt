@@ -5,7 +5,7 @@ clear;
 RP_data = Module_Lib();
 Configuration_Lib = { ...
     [1 2 1], ...
-    [2 2 1 1 2 2 3], ...
+    [1 2 1 2 1 2 1], ...
     [1 2 3 1 2 3 1], ...
     [1 1 1 2 1 2 2], ...
     [2 2 2 2 2 2 2], ...
@@ -45,16 +45,16 @@ SV = Trans_aa_pos_init(LP, SV, q0);
 % %% 目标设置
 Goal = Goal_init(SV);
 Goal.change = [0 1 0];
-Goal.POS{find(Goal.change==1)}  = [0;0;7];
-%
+Goal.POS{Goal.change==1}  = [0;0;7];
+
 % %% 该构型最佳可操作度
-[LP, SV, ~] = check_kinematics_0323(LP, SV, Goal);
+[LP, SV, ~, ~] = check_kinematics_0323(LP, SV, Goal);
 w_best = calc_Manipulability_0318(LP, SV);
-%
+
 % %% 逆运动学求解
-[LP, SV, flag] = check_kinematics_0325(LP, SV, Goal);
-w_ik = calc_Manipulability_0318(LP, SV)
-[sig, ~] = calc_Accuracy_0325(LP, SV)
+[LP, SV, ~, ~] = check_kinematics_0325(LP, SV, Goal);
+w_ik = calc_Manipulability_0318(LP, SV);
+[sig, ~] = calc_Accuracy_0325(LP, SV);
 
 % %% 优化可操作度
 [SV, q_opt, w_opt] = max_w_NULLspace(LP, SV, 2);
