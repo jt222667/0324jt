@@ -7,10 +7,10 @@ RP_data = Module_Lib();
 
 %% 2. 【定义任务点】
 % 仅有任务点够吗？之后是否需要根据任务类型改变寻优策略
-goal = [0;0;8];
+goal = [0;0;3];
 
 %% 3. 【遗传算法参数设置】
-num_modules = calc_modules_upper_0318(goal,RP_data);    % 根据任务点限制模块上限
+num_modules = 3;    % 根据任务点限制模块上限
 IntCon = 1:num_modules*3;                               % 声明这num_modules个变量全部是整数
 
 %% 生成该构型对应的mex文件，加快计算

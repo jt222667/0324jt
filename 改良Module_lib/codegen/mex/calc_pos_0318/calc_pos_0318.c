@@ -392,7 +392,7 @@ static emlrtBCInfo k_emlrtBCI = {
 
 static emlrtBCInfo l_emlrtBCI = {
     1,               /* iFirst */
-    12,              /* iLast */
+    6,               /* iLast */
     4,               /* lineNo */
     14,              /* colNo */
     "LP.BB",         /* aName */
@@ -406,7 +406,7 @@ static emlrtBCInfo l_emlrtBCI = {
 
 static emlrtBCInfo m_emlrtBCI = {
     1,               /* iFirst */
-    12,              /* iLast */
+    6,               /* iLast */
     11,              /* lineNo */
     39,              /* colNo */
     "LP.J_type",     /* aName */
@@ -431,7 +431,7 @@ static emlrtDCInfo r_emlrtDCI = {
 
 static emlrtBCInfo n_emlrtBCI = {
     1,               /* iFirst */
-    12,              /* iLast */
+    6,               /* iLast */
     18,              /* lineNo */
     39,              /* colNo */
     "LP.J_type",     /* aName */
@@ -500,7 +500,7 @@ static emlrtDCInfo w_emlrtDCI = {
 
 static emlrtBCInfo o_emlrtBCI = {
     1,               /* iFirst */
-    36,              /* iLast */
+    18,              /* iLast */
     12,              /* lineNo */
     26,              /* colNo */
     "SV.AA",         /* aName */
@@ -525,7 +525,7 @@ static emlrtDCInfo x_emlrtDCI = {
 
 static emlrtBCInfo p_emlrtBCI = {
     1,               /* iFirst */
-    36,              /* iLast */
+    18,              /* iLast */
     19,              /* lineNo */
     26,              /* colNo */
     "SV.AA",         /* aName */
@@ -566,8 +566,8 @@ void calc_pos_0318(const emlrtStack *sp, const struct0_T *LP, struct1_T *SV)
                                 (emlrtConstCTX)sp);
   for (b_i = 0; b_i < i; b_i++) {
     if (((int32_T)((uint32_T)b_i + 1U) < 1) ||
-        ((int32_T)((uint32_T)b_i + 1U) > 12)) {
-      emlrtDynamicBoundsCheckR2012b((int32_T)((uint32_T)b_i + 1U), 1, 12,
+        ((int32_T)((uint32_T)b_i + 1U) > 6)) {
+      emlrtDynamicBoundsCheckR2012b((int32_T)((uint32_T)b_i + 1U), 1, 6,
                                     &l_emlrtBCI, (emlrtConstCTX)sp);
     }
     if (LP->BB[b_i] == 0.0) {
@@ -765,8 +765,8 @@ void calc_pos_0318(const emlrtStack *sp, const struct0_T *LP, struct1_T *SV)
           emlrtIntegerCheckR2012b(LP->BB[b_i], &r_emlrtDCI, (emlrtConstCTX)sp);
         }
         b_LP = (int32_T)LP->BB[b_i];
-        if ((b_LP < 1) || (b_LP > 12)) {
-          emlrtDynamicBoundsCheckR2012b(b_LP, 1, 12, &m_emlrtBCI,
+        if ((b_LP < 1) || (b_LP > 6)) {
+          emlrtDynamicBoundsCheckR2012b(b_LP, 1, 6, &m_emlrtBCI,
                                         (emlrtConstCTX)sp);
         }
         if (LP->J_type[b_LP - 1] == 'R') {
@@ -784,9 +784,9 @@ void calc_pos_0318(const emlrtStack *sp, const struct0_T *LP, struct1_T *SV)
             if (b_Cz_tmp != A_I_BB_tmp) {
               emlrtIntegerCheckR2012b(b_Cz_tmp, &x_emlrtDCI, (emlrtConstCTX)sp);
             }
-            b = ((b_Cz_tmp < 1.0) || (b_Cz_tmp > 36.0));
+            b = ((b_Cz_tmp < 1.0) || (b_Cz_tmp > 18.0));
             if (b) {
-              emlrtDynamicBoundsCheckR2012b((int32_T)b_Cz_tmp, 1, 36,
+              emlrtDynamicBoundsCheckR2012b((int32_T)b_Cz_tmp, 1, 18,
                                             &o_emlrtBCI, (emlrtConstCTX)sp);
             }
             b_A_I_BB_tmp = (int32_T)b_Cz_tmp;
@@ -796,7 +796,7 @@ void calc_pos_0318(const emlrtStack *sp, const struct0_T *LP, struct1_T *SV)
               emlrtIntegerCheckR2012b(b_Cz_tmp, &x_emlrtDCI, (emlrtConstCTX)sp);
             }
             if (b) {
-              emlrtDynamicBoundsCheckR2012b(b_A_I_BB_tmp, 1, 36, &o_emlrtBCI,
+              emlrtDynamicBoundsCheckR2012b(b_A_I_BB_tmp, 1, 18, &o_emlrtBCI,
                                             (emlrtConstCTX)sp);
             }
             A_I_BB[3 * i1 + 1] = SV->AA[Cz_tmp_tmp + 1];
@@ -804,7 +804,7 @@ void calc_pos_0318(const emlrtStack *sp, const struct0_T *LP, struct1_T *SV)
               emlrtIntegerCheckR2012b(b_Cz_tmp, &x_emlrtDCI, (emlrtConstCTX)sp);
             }
             if (b) {
-              emlrtDynamicBoundsCheckR2012b(b_A_I_BB_tmp, 1, 36, &o_emlrtBCI,
+              emlrtDynamicBoundsCheckR2012b(b_A_I_BB_tmp, 1, 18, &o_emlrtBCI,
                                             (emlrtConstCTX)sp);
             }
             A_I_BB[3 * i1 + 2] = SV->AA[Cz_tmp_tmp + 2];
@@ -1084,8 +1084,8 @@ void calc_pos_0318(const emlrtStack *sp, const struct0_T *LP, struct1_T *SV)
           emlrtIntegerCheckR2012b(LP->BB[b_i], &s_emlrtDCI, (emlrtConstCTX)sp);
         }
         b_LP = (int32_T)LP->BB[b_i];
-        if ((b_LP < 1) || (b_LP > 12)) {
-          emlrtDynamicBoundsCheckR2012b(b_LP, 1, 12, &n_emlrtBCI,
+        if ((b_LP < 1) || (b_LP > 6)) {
+          emlrtDynamicBoundsCheckR2012b(b_LP, 1, 6, &n_emlrtBCI,
                                         (emlrtConstCTX)sp);
         }
         if (LP->J_type[b_LP - 1] == 'L') {
@@ -1103,9 +1103,9 @@ void calc_pos_0318(const emlrtStack *sp, const struct0_T *LP, struct1_T *SV)
             if (b_Cz_tmp != A_I_BB_tmp) {
               emlrtIntegerCheckR2012b(b_Cz_tmp, &y_emlrtDCI, (emlrtConstCTX)sp);
             }
-            b = ((b_Cz_tmp < 1.0) || (b_Cz_tmp > 36.0));
+            b = ((b_Cz_tmp < 1.0) || (b_Cz_tmp > 18.0));
             if (b) {
-              emlrtDynamicBoundsCheckR2012b((int32_T)b_Cz_tmp, 1, 36,
+              emlrtDynamicBoundsCheckR2012b((int32_T)b_Cz_tmp, 1, 18,
                                             &p_emlrtBCI, (emlrtConstCTX)sp);
             }
             Cz_tmp_tmp = (int32_T)b_Cz_tmp;
@@ -1115,7 +1115,7 @@ void calc_pos_0318(const emlrtStack *sp, const struct0_T *LP, struct1_T *SV)
               emlrtIntegerCheckR2012b(b_Cz_tmp, &y_emlrtDCI, (emlrtConstCTX)sp);
             }
             if (b) {
-              emlrtDynamicBoundsCheckR2012b(Cz_tmp_tmp, 1, 36, &p_emlrtBCI,
+              emlrtDynamicBoundsCheckR2012b(Cz_tmp_tmp, 1, 18, &p_emlrtBCI,
                                             (emlrtConstCTX)sp);
             }
             A_I_i[3 * i1 + 1] = SV->AA[A_I_i_tmp + 1];
@@ -1123,7 +1123,7 @@ void calc_pos_0318(const emlrtStack *sp, const struct0_T *LP, struct1_T *SV)
               emlrtIntegerCheckR2012b(b_Cz_tmp, &y_emlrtDCI, (emlrtConstCTX)sp);
             }
             if (b) {
-              emlrtDynamicBoundsCheckR2012b(Cz_tmp_tmp, 1, 36, &p_emlrtBCI,
+              emlrtDynamicBoundsCheckR2012b(Cz_tmp_tmp, 1, 18, &p_emlrtBCI,
                                             (emlrtConstCTX)sp);
             }
             A_I_i[3 * i1 + 2] = SV->AA[A_I_i_tmp + 2];
