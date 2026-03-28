@@ -6,7 +6,7 @@ clear;
 RP_data = Module_Lib();
 % 权重设置
 RP_data.weight_cfg.lambda_sig = 1;
-RP_data.weight_cfg.lambda_w = 10;
+RP_data.weight_cfg.lambda_w = 1;
 
 %% 2. 【定义任务点】
 % 仅有任务点够吗？之后是否需要根据任务类型改变寻优策略
