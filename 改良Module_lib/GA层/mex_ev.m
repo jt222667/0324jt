@@ -1,8 +1,10 @@
 function [cost, detail] = mex_ev(x, goal, RP_data)
 cost = 0;
-detail = struct('x', x, 'flag', 1, 'q_opt', [], 'w', NaN,  'sig', NaN);
+detail = struct('x', x, 'flag', 1, 'q_opt', [], 'w', NaN,  'sig', NaN, 'num_modules', NaN);
 % 1. 解码染色体 x 还原为构型参数
 num_modules = length(x) / 3;
+detail.num_modules = num_modules;
+
 module  = [1 2 1 x(1 : num_modules)];
 install = [1 1 1 x(num_modules+1 : 2*num_modules)];
 align   = [0 0 0 x(2*num_modules+1 : end)];
@@ -33,7 +35,10 @@ else
     [sig, ~]= calc_Accuracy_0325(LP, SV);
     % 综合代价函数
 
-    cost = cost + weight_w(w, RP_data.weight_cfg) + weight_sig(sig, RP_data.weight_cfg);
+    cost = cost ...
+        + weight_w(w, RP_data.weight_cfg) ...
+        + weight_sig(sig, RP_data.weight_cfg) ...
+        + weight_num_modules(num_modules, RP_data.weight_cfg);
 
     detail.flag = 0;
     detail.q_opt = q_sol;
