@@ -1,6 +1,6 @@
-function cost = jIKc(q, LP, SV, Goal, change)
+function cost = jIKc330(q, LP, SV, Goal, change)
 
-SV_tmp = Trans_aa_pos_mex(LP, SV, q);
+SV_tmp = Trans_aa_pos_init(LP, SV, q);
 
 pos_err = 0;
 for i = change

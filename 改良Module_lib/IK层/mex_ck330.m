@@ -1,5 +1,5 @@
 %% 3.17 12:28 修正f_kin_end
-function [LP, SV, flag, q_sol] = mex_ck(LP, SV, Goal)
+function [LP, SV, flag, q_sol] = ck(LP, SV, Goal)
 %% 初始化
 % 目标点可达flag = 0，不可达flag = 1
 flag = 0;
@@ -28,7 +28,7 @@ parfor k = 1:num_trials
     q_init = mod(2*pi*(base + (k-1)/num_trials), 2*pi);
 
     % 调用 fmincon
-    [q_opt, fval] = fmincon(@(q) jIKc(q, LP, SV, Goal, change), ...
+    [q_opt, fval] = fmincon(@(q) jIKc330(q, LP, SV, Goal, change), ...
         q_init, [], [], [], [], ...
         zeros(num_joint,1), 2*pi*ones(num_joint,1), [], options);
     % 将结果存入临时数组（parfor 内部不能直接更新外部的全局 best_cost）
@@ -38,7 +38,7 @@ end
 % 循环结束后，在主线程找出最优解
 [best_cost, best_idx] = min(all_fvals);
 q_sol = all_q_opt{best_idx};
-SV = Trans_aa_pos_mex(LP, SV, q_sol);
+SV = Trans_aa_pos_init(LP, SV, q_sol);
 
 %% 验证逆解结果
 if best_cost == inf

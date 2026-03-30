@@ -19,7 +19,4 @@ P_SIG      = cfg.p_sig;
 ratio = sig / SIG_REF;
 c_sig = LAMBDA_SIG * (ratio ^ P_SIG);
 
-if ~isfinite(c_sig)
-    c_sig = inf;
-end
 end

@@ -18,11 +18,6 @@ LAMBDA_W = cfg.lambda_w;    % 权重系数
 P_W      = cfg.p_w;         % 指数
 W_MODE   = cfg.w_mode;      % 模式 min / mean
 
-if isempty(w)
-    c_w = inf;
-    return;
-end
-
 switch lower(W_MODE)
     case 'max'
         w_eff = max(w);
@@ -33,8 +28,5 @@ end
 ratio = W_REF / max(w_eff, EPS_W);
 c_w = LAMBDA_W * (ratio ^ P_W);
 
-if ~isfinite(c_w)
-    c_w = inf;
-end
 end
 
