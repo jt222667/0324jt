@@ -1,5 +1,5 @@
 %% 3.17 12:28 修正f_kin_end
-function [LP, SV, flag, q_sol] = ck(LP, SV, Goal)
+function [LP, SV, flag, q_sol] = mex_ck330(LP, SV, Goal)
 %% 初始化
 % 目标点可达flag = 0，不可达flag = 1
 flag = 0;
@@ -41,7 +41,7 @@ q_sol = all_q_opt{best_idx};
 SV = Trans_aa_pos_init(LP, SV, q_sol);
 
 %% 验证逆解结果
-if best_cost == inf
+if best_cost == 1e12
     flag = 1;
 end
 

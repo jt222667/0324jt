@@ -11,11 +11,11 @@ RP_data.weight_cfg.lambda_num_modules = 1;
 
 %% 2. 【定义任务点】
 % 仅有任务点够吗？之后是否需要根据任务类型改变寻优策略
-goal = [0;0;5];
+goal = [0;0;8];
 
 %% 3. 【遗传算法参数设置】
 num_modules_upper = calc_modules_upper_0318(goal,RP_data);    % 根据任务点限制模块上限
-num_modules_lower = 1;                                        % 至少保留1个可变模块
+num_modules_lower = 7;                                        % 至少保留1个可变模块
 
 % 用于模块数代价归一化
 RP_data.weight_cfg.num_modules_ref = num_modules_upper;

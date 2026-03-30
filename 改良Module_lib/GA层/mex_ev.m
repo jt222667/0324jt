@@ -38,7 +38,7 @@ Goal.POS{Goal.change==1} = goal;
 
 % 4. 评价指标计算
 if flag
-    cost = inf; % 惩罚项：如果工作点不可达，赋予极大的惩罚值，直接淘汰
+    cost = 1e12; % 惩罚项：如果工作点不可达，赋予极大的惩罚值，直接淘汰
     detail.flag = 1;
     return;
 else
