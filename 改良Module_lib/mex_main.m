@@ -8,6 +8,7 @@ RP_data = Module_Lib();
 RP_data.weight_cfg.lambda_sig = 1;
 RP_data.weight_cfg.lambda_w = 1;
 RP_data.weight_cfg.lambda_num_modules = 1;
+RP_data.weight_cfg.lambda_num_connect = 1;
 
 %% 2. 【定义任务点】
 % 仅有任务点够吗？之后是否需要根据任务类型改变寻优策略
@@ -19,6 +20,10 @@ num_modules_lower = 7;                                        % 至少保留1个
 
 % 用于模块数代价归一化
 RP_data.weight_cfg.num_modules_ref = num_modules_upper;
+RP_data.weight_cfg.num_connect_ref = num_modules_upper;
+
+module_choice_set = RP_data.module_choice_set;
+module_choice_max = max(module_choice_set);
 
 % 染色体编码：
 % x = [num_modules, module(1:upper), install(1:upper), align(1:upper)]
@@ -31,7 +36,7 @@ lb = [num_modules_lower, ...
       ones(1, num_modules_upper)*0, ...
       ones(1, num_modules_upper)*0];
 ub = [num_modules_upper, ...
-      ones(1, num_modules_upper)*5, ...
+      ones(1, num_modules_upper)*module_choice_max, ...
       ones(1, num_modules_upper)*1, ...
       ones(1, num_modules_upper)*2];
 
@@ -72,10 +77,15 @@ if evalin('base', "exist('tracked_best','var')")
         best_detail.w = ga_tracked_best.w;
         best_detail.sig = ga_tracked_best.sig;
         best_detail.num_modules = ga_tracked_best.num_modules;
+        best_detail.num_connect = ga_tracked_best.num_connect;
+        best_detail.module_expanded = ga_tracked_best.module_expanded;
+        best_detail.install_expanded = ga_tracked_best.install_expanded;
+        best_detail.align_expanded = ga_tracked_best.align_expanded;
     end
 end
 
 num_modules = best_detail.num_modules;
+num_connect = best_detail.num_connect;
 
 %% 5. 【结果解析】
 disp('寻优完成！最优构型参数：');
@@ -83,14 +93,18 @@ module_gene  = best_x(2 : 1+num_modules_upper);
 install_gene = best_x(2+num_modules_upper : 1+2*num_modules_upper);
 align_gene   = best_x(2+2*num_modules_upper : end);
 
-best_module  = module_gene(1:num_modules);
-best_install = install_gene(1:num_modules);
-best_align   = align_gene(1:num_modules);
+best_module  = module_gene(1:num_connect);
+best_install = install_gene(1:num_connect);
+best_align   = align_gene(1:num_connect);
 
 fprintf('Best num_modules: %d\n', num_modules);
+fprintf('Best num_connect: %d\n', num_connect);
 fprintf('Module:  [%s]\n', num2str(best_module));
 fprintf('Install: [%s]\n', num2str(best_install));
 fprintf('Align:   [%s]\n', num2str(best_align));
+fprintf('Expanded module:  [%s]\n', num2str(best_detail.module_expanded));
+fprintf('Expanded install: [%s]\n', num2str(best_detail.install_expanded));
+fprintf('Expanded align:   [%s]\n', num2str(best_detail.align_expanded));
  
 fprintf('Cost:    %.6f\n', best_cost);
 fprintf('q_opt:   [%s]\n', num2str(best_detail.q_opt(:).'));
